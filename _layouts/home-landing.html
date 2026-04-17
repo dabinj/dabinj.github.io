@@ -23,10 +23,12 @@ layout: default
     </div>
 
     <div class="home-post-list">
-      {% for post in site.posts limit: 5 %}
+      {% assign posts_by_lastmod = site.posts | sort: "last_modified_at" | reverse %}
+      {% for post in posts_by_lastmod limit: 5 %}
         <article class="home-post-card">
           <p class="home-post-meta">
-            {{ post.date | date: "%Y.%m.%d" }}
+            {% assign display_date = post.last_modified_at | default: post.date %}
+            {{ display_date | date: "%Y.%m.%d" }}
             {% if post.categories.size > 0 %}
               <span class="home-post-divider">/</span>
               {{ post.categories | join: " · " }}
