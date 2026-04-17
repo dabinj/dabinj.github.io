@@ -1,0 +1,226 @@
+---
+---
+
+@import 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+#sidebar .category-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: 0.9rem;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+#sidebar .category-toggle-label {
+  display: inline-flex;
+  align-items: center;
+}
+
+#sidebar .category-toggle-icon {
+  font-size: 0.85rem;
+  transition: transform 0.2s ease;
+}
+
+#sidebar .category-toggle[aria-expanded='true'] .category-toggle-icon {
+  transform: rotate(180deg);
+}
+
+#sidebar .sidebar-category-list,
+#sidebar .sidebar-subcategory-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#sidebar .sidebar-category-list {
+  margin: 0.2rem 0 0.75rem;
+  padding-left: 2.35rem;
+}
+
+#sidebar .sidebar-subcategory-list {
+  padding-left: 0.9rem;
+}
+
+#sidebar .sidebar-category-link {
+  display: block;
+  padding: 0.24rem 0;
+  color: var(--sidebar-muted-color);
+  font-size: 0.92rem;
+}
+
+#sidebar .sidebar-category-link.subcategory {
+  font-size: 0.86rem;
+}
+
+#sidebar .sidebar-category-link.active,
+#sidebar .sidebar-category-link:hover {
+  color: var(--sidebar-active-color);
+}
+
+.landing-home {
+  width: 100%;
+}
+
+.home-cover {
+  min-height: calc(100vh - 7rem);
+  padding: 2rem 0 1rem;
+}
+
+.home-cover-kicker {
+  margin-bottom: 0.75rem;
+  color: var(--text-muted-color);
+  font-size: 0.95rem;
+  letter-spacing: 0.22rem;
+  text-transform: uppercase;
+}
+
+.home-cover-title {
+  margin: 0;
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.home-cover-summary {
+  max-width: 34rem;
+  margin: 1.25rem 0 0;
+  color: var(--text-muted-color);
+  font-size: 1.05rem;
+}
+
+.home-cover-scroll {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 2rem;
+  color: var(--sidebar-active-color);
+  font-weight: 600;
+}
+
+.home-cover-scroll::after {
+  content: "↓";
+  margin-left: 0.55rem;
+}
+
+.home-details {
+  padding: 2rem 0 3rem;
+}
+
+.home-details h2:first-child {
+  margin-top: 0;
+}
+
+.private-contact-card {
+  margin: 2rem 0 2.25rem;
+  padding: 1.25rem 1.4rem;
+  border: 1px solid var(--card-border-color);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.private-contact-card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.private-contact-card p {
+  margin: 0;
+  color: var(--text-muted-color);
+}
+
+.private-contact-btn {
+  white-space: nowrap;
+}
+
+.contact-form-card {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--card-border-color);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.private-contact-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.contact-field label {
+  font-weight: 600;
+}
+
+.contact-field input,
+.contact-field textarea {
+  width: 100%;
+  border: 1px solid var(--card-border-color);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-color);
+  padding: 0.8rem 0.95rem;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: var(--text-muted-color);
+}
+
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.contact-actions {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.contact-help {
+  margin: 0;
+  color: var(--text-muted-color);
+  font-size: 0.95rem;
+}
+
+.contact-status {
+  margin: 0;
+  min-height: 1.4rem;
+  font-size: 0.95rem;
+}
+
+.contact-status.is-success {
+  color: #4daf7c;
+}
+
+.contact-status.is-error {
+  color: #ff7d7d;
+}
+
+@media (max-width: 768px) {
+  .private-contact-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .private-contact-btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,15 @@
+.bundle
+.bundle-home
+vendor
+Gemfile.lock
+.jekyll-cache
+.jekyll-metadata
+_site
+_app
+*.gem
+node_modules
+package-lock.json
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json

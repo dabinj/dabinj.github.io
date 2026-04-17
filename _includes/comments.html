@@ -1,0 +1,18 @@
+{% assign private_contact_url = '/contact/' | relative_url %}
+
+<section class="private-contact-card">
+  <div class="private-contact-copy">
+    <h2>비공개 문의</h2>
+    <p>공개 댓글과 별도로 남기고 싶은 내용은 문의 페이지를 이용해 주세요.</p>
+  </div>
+
+  <a class="btn btn-outline-primary private-contact-btn" href="{{ private_contact_url }}">
+    비공개 문의하기
+  </a>
+</section>
+
+<!--  The comments switcher -->
+{% if page.comments and site.comments.active %}
+  {% capture path %}comments/{{ site.comments.active }}.html{% endcapture %}
+  {% include {{ path }} %}
+{% endif %}

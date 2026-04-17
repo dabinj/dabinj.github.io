@@ -1,0 +1,127 @@
+theme: jekyll-theme-chirpy
+
+lang: ko-KR
+timezone: Asia/Seoul
+
+title: Masanam blog
+tagline: 생물정보학 분석, 파이프라인, 연구 메모
+description: >-
+  NGS 분석, 파이프라인 구축, 연구 메모와 개발 기록을 정리하는 개인 블로그.
+
+url: "https://dabinj.github.io"
+baseurl: ""
+
+github:
+  username: dabinj
+
+twitter:
+  username:
+
+social:
+  name: Masanam
+  email:
+  links:
+    - https://github.com/dabinj
+
+contact:
+  formspree:
+    endpoint: https://formspree.io/f/xgoragjj
+    subject_prefix: "[Private Contact]"
+    success_message: 문의가 전송되었습니다. 답장이 필요하면 이메일 주소를 함께 남겨 주세요.
+
+theme_mode: dark
+avatar: /assets/img/profile.png
+
+toc: true
+
+comments:
+  active: utterances
+  utterances:
+    repo: dabinj/dabinj.github.io
+    issue_term: pathname
+
+assets:
+  self_host:
+    enabled:
+    env:
+
+pwa:
+  enabled: true
+  cache:
+    enabled: true
+    deny_paths:
+
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+      toc: true
+      permalink: /posts/:title/
+  - scope:
+      path: _drafts
+    values:
+      comments: false
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+  - scope:
+      path: assets/js/dist
+    values:
+      swcache: true
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - docs
+  - tools
+  - README.md
+  - LICENSE
+  - "*.config.js"
+  - package*.json
+  - vendor
+  - .bundle-home
+  - .bundle
+  - public
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/
