@@ -1,5 +1,11 @@
 {% assign private_contact_url = '/contact/' | relative_url %}
 
+<!--  The comments switcher -->
+{% if page.comments and site.comments.active %}
+  {% capture path %}comments/{{ site.comments.active }}.html{% endcapture %}
+  {% include {{ path }} %}
+{% endif %}
+
 <section class="private-contact-card">
   <div class="private-contact-copy">
     <h2>비공개 문의</h2>
@@ -10,9 +16,3 @@
     비공개 문의하기
   </a>
 </section>
-
-<!--  The comments switcher -->
-{% if page.comments and site.comments.active %}
-  {% capture path %}comments/{{ site.comments.active }}.html{% endcapture %}
-  {% include {{ path }} %}
-{% endif %}
