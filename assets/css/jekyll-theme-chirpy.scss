@@ -270,24 +270,6 @@
   color: #ff7d7d;
 }
 
-#access-hits {
-  display: flex;
-  justify-content: flex-start;
-}
-
-#access-hits a {
-  display: block;
-  width: 100%;
-}
-
-#access-hits img {
-  display: block;
-  width: 100%;
-  max-width: 135px;
-  height: auto;
-  margin: 0;
-}
-
 @media (max-width: 768px) {
   .private-contact-card {
     align-items: flex-start;

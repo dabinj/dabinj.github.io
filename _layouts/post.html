@@ -70,8 +70,11 @@ tail_includes:
           </em>
         </span>
 
+        {% capture page_views_target -%}
+{{ page.url | absolute_url }}?v=2
+        {%- endcapture %}
         {% capture page_views_url -%}
-https://hitscounter.dev/api/hit?url={{ page.url | absolute_url | url_encode }}&label=views&icon=book-half&color=%23212529&message=&style=flat&tz=Asia%2FSeoul
+https://hitscounter.dev/api/hit?url={{ page_views_target | strip | url_encode }}&label=views&icon=book-half&color=%23212529&message=&style=flat&tz=Asia%2FSeoul
         {%- endcapture %}
         <div class="mt-2">
           <img
