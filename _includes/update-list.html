@@ -29,6 +29,12 @@
       node.textContent = typeof value === 'number' ? value.toLocaleString() : value;
     };
 
+    const applyCounts = (data) => {
+      if (!data) return;
+      setValue(todayNode, data.todayCount ?? 0);
+      setValue(totalNode, data.totalCount ?? 0);
+    };
+
     const payload = {
       domain: window.location.hostname,
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -37,24 +43,41 @@
       referrer: document.referrer
     };
 
+    let hasShownCounts = false;
+
+    const parseJson = (response) => {
+      if (!response.ok) {
+        throw new Error('visitor counter request failed');
+      }
+      return response.json();
+    };
+
+    const statsUrl = `https://visitor.6developer.com/visit?domain=${encodeURIComponent(payload.domain)}`;
+
+    fetch(statsUrl)
+      .then(parseJson)
+      .then((data) => {
+        applyCounts(data);
+        hasShownCounts = true;
+      })
+      .catch(() => {});
+
     fetch('https://visitor.6developer.com/visit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      keepalive: true
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('visitor counter request failed');
-        }
-        return response.json();
-      })
+      .then(parseJson)
       .then((data) => {
-        setValue(todayNode, data.todayCount ?? 0);
-        setValue(totalNode, data.totalCount ?? 0);
+        applyCounts(data);
+        hasShownCounts = true;
       })
       .catch(() => {
-        setValue(todayNode, '-');
-        setValue(totalNode, '-');
+        if (!hasShownCounts) {
+          setValue(todayNode, '-');
+          setValue(totalNode, '-');
+        }
       });
   })();
 </script>
