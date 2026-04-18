@@ -270,6 +270,60 @@
   color: #ff7d7d;
 }
 
+#access-hits {
+  display: flex;
+  justify-content: center;
+}
+
+#access-hits .visitor-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  width: 100%;
+  max-width: 260px;
+  padding: 0.45rem 0.55rem;
+  border: 1px solid var(--card-border-color);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-color);
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+#access-hits .visitor-badge-label,
+#access-hits .visitor-badge-item {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+}
+
+#access-hits .visitor-badge-label {
+  justify-content: center;
+  min-width: 4.4rem;
+  padding: 0.48rem 0.7rem;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+#access-hits .visitor-badge-item {
+  gap: 0.35rem;
+  padding: 0.48rem 0.6rem;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+#access-hits .visitor-badge-key {
+  color: var(--text-muted-color);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+#access-hits .visitor-badge-value {
+  color: var(--heading-color);
+  font-weight: 700;
+}
+
 @media (max-width: 768px) {
   .private-contact-card {
     align-items: flex-start;
