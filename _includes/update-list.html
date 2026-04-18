@@ -1,86 +1,16 @@
 <section id="access-hits" class="mb-4" data-visitor-counter>
-  <div class="visitor-badge" aria-label="Visitor counter">
-    <span class="visitor-badge-label">VISITS</span>
-    <span class="visitor-badge-item">
-      <span class="visitor-badge-key">TODAY</span>
-      <span class="visitor-badge-value" data-counter-today>...</span>
-    </span>
-    <span class="visitor-badge-item">
-      <span class="visitor-badge-key">TOTAL</span>
-      <span class="visitor-badge-value" data-counter-total>...</span>
-    </span>
-  </div>
+  <a
+    href="https://hitscounter.dev/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Visitor counter badge"
+  >
+    <img
+      src="https://hitscounter.dev/api/hit?url=https%3A%2F%2Fdabinj.github.io%2F&label=visitors&icon=github&color=%23212529&message=&style=flat&tz=Asia%2FSeoul"
+      alt="Visitor badge"
+    >
+  </a>
 </section>
-
-<script>
-  (function () {
-    const counterRoot = document.querySelector('[data-visitor-counter]');
-
-    if (!counterRoot || counterRoot.dataset.loaded === 'true') {
-      return;
-    }
-
-    counterRoot.dataset.loaded = 'true';
-
-    const todayNode = counterRoot.querySelector('[data-counter-today]');
-    const totalNode = counterRoot.querySelector('[data-counter-total]');
-    const setValue = (node, value) => {
-      if (!node) return;
-      node.textContent = typeof value === 'number' ? value.toLocaleString() : value;
-    };
-
-    const applyCounts = (data) => {
-      if (!data) return;
-      setValue(todayNode, data.todayCount ?? 0);
-      setValue(totalNode, data.totalCount ?? 0);
-    };
-
-    const payload = {
-      domain: window.location.hostname,
-      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      page_path: window.location.pathname,
-      page_title: document.title,
-      referrer: document.referrer
-    };
-
-    let hasShownCounts = false;
-
-    const parseJson = (response) => {
-      if (!response.ok) {
-        throw new Error('visitor counter request failed');
-      }
-      return response.json();
-    };
-
-    const statsUrl = `https://visitor.6developer.com/visit?domain=${encodeURIComponent(payload.domain)}`;
-
-    fetch(statsUrl)
-      .then(parseJson)
-      .then((data) => {
-        applyCounts(data);
-        hasShownCounts = true;
-      })
-      .catch(() => {});
-
-    fetch('https://visitor.6developer.com/visit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      keepalive: true
-    })
-      .then(parseJson)
-      .then((data) => {
-        applyCounts(data);
-        hasShownCounts = true;
-      })
-      .catch(() => {
-        if (!hasShownCounts) {
-          setValue(todayNode, '-');
-          setValue(totalNode, '-');
-        }
-      });
-  })();
-</script>
 
 <!-- Get the last 5 posts from lastmod list. -->
 
