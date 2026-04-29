@@ -3,10 +3,11 @@ theme: jekyll-theme-chirpy
 lang: ko-KR
 timezone: Asia/Seoul
 
-title: Masanam blog
+title: 마사남 블로그
+display_title: Masanam blog
 tagline: Bioinformatics & Life
 description: >-
-  NGS 분석, 파이프라인 구축, 연구 메모와 개발 기록을 정리하는 개인 블로그.
+  마사남 블로그는 NGS, 바이오인포매틱스, 분석 파이프라인 개발 과정, 마이크로바이옴 논문 연구와 직장인의 일상을 기록하는 소소한 아카이브입니다.
 
 url: "https://www.masanam.co.kr"
 baseurl: ""
