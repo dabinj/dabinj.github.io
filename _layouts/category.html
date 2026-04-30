@@ -1,0 +1,51 @@
+---
+layout: page
+# The Category layout
+---
+
+{% include lang.html %}
+
+<div id="page-category" class="category-card-page">
+  <h1 class="ps-lg-2">
+    <i class="far fa-folder-open fa-fw text-muted"></i>
+    {{ page.title }}
+    <span class="lead text-muted ps-2">{{ page.posts | size }}</span>
+  </h1>
+
+  <div class="category-post-grid content">
+    {% for post in page.posts %}
+      <article class="category-post-card">
+        {% assign escaped_title = post.title | escape %}
+        {% assign thumbnail = nil %}
+        {% if post.image %}
+          {% assign thumbnail = post.image.path | default: post.image %}
+        {% else %}
+          {% assign image_parts = post.content | split: 'src="' %}
+          {% if image_parts.size > 1 %}
+            {% assign thumbnail = image_parts[1] | split: '"' | first %}
+          {% endif %}
+        {% endif %}
+
+        <a class="category-post-thumb" href="{{ post.url | relative_url }}" aria-label="{{ escaped_title }}">
+          {% if thumbnail %}
+            <img src="{{ thumbnail | relative_url }}" alt="{{ escaped_title }}">
+          {% else %}
+            <div class="category-post-thumb-fallback">
+              <span>{{ site.display_title | default: site.title }}</span>
+            </div>
+          {% endif %}
+        </a>
+
+        <div class="category-post-body">
+          <div class="category-post-meta">
+            {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
+          </div>
+
+          <h2 class="category-post-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h2>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>
