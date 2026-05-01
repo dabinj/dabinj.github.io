@@ -1,6 +1,7 @@
 ---
 title: "더닝-크루거 효과: 본인의 무능함을 못알아채는 사람"
 date: 2026-05-01 09:00:00 +0900
+last_modified_at: 2026-05-01 22:56:15 +0900
 description: "Dunning과 Kruger의 1999년 논문을 읽고 느낀점을 정리한 글"
 author: dabin
 categories: [Essay, Thoughts]
