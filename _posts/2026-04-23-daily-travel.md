@@ -3,7 +3,7 @@ title: "여행 카테고리를 시작하며"
 date: 2026-04-22 23:50:00 +0900
 description: "다녀온 여행지와 그곳에서 남긴 생각을 모아둘 카테고리입니다."
 author: dabin
-categories: [일상, 여행]
+categories: [Life, 여행기록]
 tags: [여행, 기록, 일상]
 ---
 

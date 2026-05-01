@@ -3,7 +3,7 @@ title: "맛집 카테고리를 시작하며"
 date: 2026-04-22 23:55:00 +0900
 description: "기억해두고 싶은 식당과 음식 기록을 모아둘 카테고리입니다."
 author: dabin
-categories: [일상, 맛집]
+categories: [Life, 맛집소개]
 tags: [맛집, 음식, 일상]
 ---
 

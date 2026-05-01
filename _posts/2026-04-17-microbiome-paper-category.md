@@ -3,7 +3,7 @@ title: "Microbiome 논문 카테고리를 시작하며"
 date: 2026-04-17 09:25:00 +0900
 description: "Microbiome 분야 논문 메모를 정리하기 위한 카테고리입니다."
 author: dabin
-categories: [Microbiome, 논문]
+categories: [Microbiome, Paper Review]
 tags: [microbiome, 논문, paper]
 ---
 

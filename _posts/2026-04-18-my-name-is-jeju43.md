@@ -3,7 +3,7 @@ title: "제주 4.3과 영화 \"내 이름은\""
 date: 2026-04-18 10:00:00 +0900
 description: "영화 '내 이름은'을 보고 남긴 감상"
 author: dabin
-categories: [일상, 영화]
+categories: [Essay, Movie]
 tags: [영화, 감상, 제주4.3]
 ---
 

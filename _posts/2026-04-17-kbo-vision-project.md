@@ -1,9 +1,9 @@
 ---
 title: "KBO_VISION 프로젝트 소개"
 date: 2026-04-17 18:00:00 +0900
-description: "Github Project 카테고리에서 KBO_VISION 프로젝트의 목적과 현재 진행 방향을 정리한 글입니다."
+description: "Project 카테고리에서 KBO_VISION 프로젝트의 목적과 현재 진행 방향을 정리한 글입니다."
 author: dabin
-categories: [Github Project]
+categories: [Project]
 tags: [KBO_VISION, project, baseball]
 ---
 

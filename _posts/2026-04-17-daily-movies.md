@@ -3,7 +3,7 @@ title: "영화 카테고리를 시작하며"
 date: 2026-04-17 09:10:00 +0900
 description: "영화 감상 기록을 모아둘 카테고리입니다."
 author: dabin
-categories: [일상, 영화]
+categories: [Essay, Movie]
 tags: [영화, 리뷰, 일상]
 ---
 

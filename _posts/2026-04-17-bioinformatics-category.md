@@ -3,7 +3,7 @@ title: "Bioinformatics 카테고리를 시작하며"
 date: 2026-04-17 09:20:00 +0900
 description: "생물정보학 분석과 파이프라인 관련 글을 모을 카테고리입니다."
 author: dabin
-categories: [Bioinformatics]
+categories: [Bioinformatics, Pipeline Development]
 tags: [bioinformatics, ngs, pipeline]
 ---
 

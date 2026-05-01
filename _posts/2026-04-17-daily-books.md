@@ -3,7 +3,7 @@ title: "생일선물"
 date: 2026-04-17 09:05:00 +0900
 description: "읽은 책과 메모를 정리하기 위한 카테고리입니다."
 author: dabin
-categories: [일상, 책]
+categories: [Essay, Book]
 tags: [책, 기록, 일상]
 ---
 

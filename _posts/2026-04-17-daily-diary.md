@@ -3,7 +3,7 @@ title: "일기 카테고리를 시작하며"
 date: 2026-04-17 09:15:00 +0900
 description: "가볍게 남기는 개인 메모와 일상 기록입니다."
 author: dabin
-categories: [일상, 일기]
+categories: [Essay, Diary]
 tags: [일기, 메모, 일상]
 ---
 
