@@ -1,6 +1,7 @@
 ---
 title: "제주현지인의 맛집: 노형동 장어통일"
 date: 2026-03-28 23:50:00 +0900
+last_modified_at: 2026-05-02 23:10:00 +0900
 description: "제주에 갈 때마다 다시 찾게 되는 노형동 장어통일 방문 기록"
 author: dabin
 categories: [Life, 맛집소개]
