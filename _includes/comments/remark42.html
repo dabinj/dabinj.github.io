@@ -1,0 +1,90 @@
+<section class="remark42-comments" aria-label="댓글">
+  <div class="remark42-comments__header">
+    <h2>댓글</h2>
+    <p>내용에 대한 오류 수정 요청, 질문은 언제나 환영입니다. 자유롭게 댓글을 남겨주세요! (하지만 부적절한 댓글은 삭제될 수 있습니다)</p>
+  </div>
+
+  <div id="remark42" class="remark42-comments__embed"></div>
+</section>
+
+<script>
+  (function () {
+    const html = document.documentElement;
+
+    function getRemarkTheme() {
+      if (html.hasAttribute('data-mode')) {
+        return html.getAttribute('data-mode') === 'dark' ? 'dark' : 'light';
+      }
+
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    window.remark42GetTheme = getRemarkTheme;
+  })();
+
+  var remark_config = window.remark_config = {
+    host: '{{ site.comments.remark42.host }}',
+    site_id: '{{ site.comments.remark42.site_id }}',
+    url: window.location.origin + window.location.pathname,
+    components: ['embed'],
+    theme: window.remark42GetTheme(),
+    locale: 'ko',
+    no_footer: true
+  };
+
+  (function () {
+    const script = document.createElement('script');
+    script.src = remark_config.host + '/web/embed.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  })();
+
+  (function () {
+    addEventListener('message', (event) => {
+      if (
+        event.source === window &&
+        event.data &&
+        typeof ModeToggle !== 'undefined' &&
+        event.data.direction === ModeToggle.ID &&
+        window.REMARK42 &&
+        typeof window.REMARK42.changeTheme === 'function'
+      ) {
+        const mode = event.data.message;
+        window.REMARK42.changeTheme(mode === ModeToggle.DARK_MODE ? 'dark' : 'light');
+      }
+    });
+  })();
+</script>
+
+<style>
+  .remark42-comments {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+  }
+
+  .remark42-comments__header {
+    margin-bottom: 1rem;
+  }
+
+  .remark42-comments__header h2 {
+    margin-bottom: 0.25rem;
+    font-size: 1.35rem;
+  }
+
+  .remark42-comments__header p {
+    margin-bottom: 0;
+    color: var(--text-muted-color);
+    font-size: 0.9rem;
+  }
+
+  .remark42-comments__embed {
+    min-height: 220px;
+    color: var(--text-muted-color);
+  }
+
+  #related-posts {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--main-border-color);
+  }
+</style>

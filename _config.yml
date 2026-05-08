@@ -36,10 +36,13 @@ avatar: /assets/img/profile.png
 toc: true
 
 comments:
-  active: utterances
+  active: remark42
   utterances:
     repo: dabinj/dabinj.github.io
     issue_term: pathname
+  remark42:
+    host: https://comments.masanam.co.kr
+    site_id: masanam
 
 assets:
   self_host:
