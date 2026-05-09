@@ -1,0 +1,173 @@
+<section
+  class="post-like"
+  data-post-like
+  data-post-url="{{ page.url | relative_url }}"
+  data-like-endpoint="{{ site.comments.remark42.host }}/api/likes"
+>
+  <button class="post-like__button" type="button" aria-pressed="false" data-post-like-button>
+    <i class="far fa-heart" aria-hidden="true"></i>
+    <span>좋아요</span>
+    <strong data-post-like-count>0</strong>
+  </button>
+</section>
+
+<script>
+  (function () {
+    const root = document.querySelector('[data-post-like]');
+    if (!root) {
+      return;
+    }
+
+    const button = root.querySelector('[data-post-like-button]');
+    const countEl = root.querySelector('[data-post-like-count]');
+    const postUrl = root.dataset.postUrl || window.location.pathname;
+    const endpoint = root.dataset.likeEndpoint;
+    const likedKey = `masanam:server-likes:${postUrl}:liked`;
+
+    function readLiked() {
+      try {
+        return window.localStorage && localStorage.getItem(likedKey) === '1';
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function writeLiked(value) {
+      try {
+        if (!window.localStorage) {
+          return;
+        }
+
+        if (value) {
+          localStorage.setItem(likedKey, '1');
+        } else {
+          localStorage.removeItem(likedKey);
+        }
+      } catch (error) {
+        // Ignore storage errors so the server count still works.
+      }
+    }
+
+    function render(count, liked) {
+      countEl.textContent = count.toLocaleString('ko-KR');
+      button.setAttribute('aria-pressed', liked ? 'true' : 'false');
+      button.classList.toggle('liked', liked);
+
+      const icon = button.querySelector('i');
+      if (icon) {
+        icon.className = liked ? 'fas fa-heart' : 'far fa-heart';
+      }
+    }
+
+    async function requestLike(method, body) {
+      const url = method === 'GET' ? `${endpoint}?url=${encodeURIComponent(postUrl)}` : endpoint;
+      const response = await fetch(url, {
+        method,
+        headers: method === 'POST' ? { 'Content-Type': 'application/json' } : undefined,
+        body: method === 'POST' ? JSON.stringify(body) : undefined
+      });
+
+      if (!response.ok) {
+        throw new Error(`Like request failed: ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    let count = 0;
+    let liked = readLiked();
+    render(count, liked);
+
+    if (!endpoint || typeof fetch !== 'function') {
+      button.disabled = true;
+      return;
+    }
+
+    button.disabled = true;
+    requestLike('GET')
+      .then((data) => {
+        count = Number.isFinite(data.count) ? data.count : 0;
+        render(count, liked);
+      })
+      .catch(() => {
+        button.classList.add('unavailable');
+      })
+      .finally(() => {
+        button.disabled = false;
+      });
+
+    button.addEventListener('click', async function () {
+      if (button.disabled) {
+        return;
+      }
+
+      const nextLiked = !liked;
+      button.disabled = true;
+
+      try {
+        const data = await requestLike('POST', {
+          url: postUrl,
+          action: nextLiked ? 'like' : 'unlike'
+        });
+
+        liked = nextLiked;
+        count = Number.isFinite(data.count) ? data.count : count;
+        writeLiked(liked);
+        render(count, liked);
+        button.classList.remove('unavailable');
+      } catch (error) {
+        button.classList.add('unavailable');
+      } finally {
+        button.disabled = false;
+      }
+    });
+  })();
+</script>
+
+<style>
+  .post-like {
+    margin-top: 2rem;
+  }
+
+  .post-like__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.25rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 999px;
+    background: var(--main-bg);
+    color: var(--text-color);
+    font-size: 0.95rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .post-like__button:hover,
+  .post-like__button:focus-visible {
+    border-color: #e2556f;
+    color: #e2556f;
+  }
+
+  .post-like__button.liked {
+    border-color: #e2556f;
+    background: rgba(226, 85, 111, 0.1);
+    color: #e2556f;
+  }
+
+  .post-like__button:disabled {
+    cursor: wait;
+    opacity: 0.72;
+  }
+
+  .post-like__button.unavailable {
+    border-color: var(--main-border-color);
+    color: var(--text-muted-color);
+  }
+
+  .post-like__button strong {
+    font-weight: 600;
+  }
+</style>

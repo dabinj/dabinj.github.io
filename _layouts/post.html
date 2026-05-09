@@ -93,6 +93,8 @@ https://hitscounter.dev/api/hit?url={{ page_views_target | strip | url_encode }}
     {{ content }}
   </div>
 
+  {% include post-like.html %}
+
   <div class="post-tail-wrapper text-muted">
     <!-- categories -->
     {% if page.categories.size > 0 %}
