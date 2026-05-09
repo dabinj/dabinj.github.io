@@ -43,9 +43,7 @@
         } else {
           localStorage.removeItem(likedKey);
         }
-      } catch (error) {
-        // Ignore storage errors so the server count still works.
-      }
+      } catch (error) {}
     }
 
     function render(count, liked) {
