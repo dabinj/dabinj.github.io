@@ -38,7 +38,7 @@ layout: page
         {% when 'Essay' %}
           {% assign ordered_sub_categories = 'Book|Movie|Diary|Thoughts' | split: '|' %}
         {% when 'Life' %}
-          {% assign ordered_sub_categories = '맛집소개|여행기록' | split: '|' %}
+          {% assign ordered_sub_categories = '맛집소개|여행기록|배드민턴 입문기' | split: '|' %}
         {% else %}
           {% assign ordered_sub_categories = sub_categories | sort %}
       {% endcase %}
