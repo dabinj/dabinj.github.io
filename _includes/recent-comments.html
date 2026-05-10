@@ -1,0 +1,81 @@
+{% if site.comments.active == 'remark42' %}
+  <section id="access-recent-comments" class="recent-comments-panel">
+    <h2 class="panel-heading">최근 댓글</h2>
+    <div class="remark42__last-comments recent-comments-panel__list" data-max="6"></div>
+  </section>
+
+  <script>
+    (function () {
+      if (window.__masanamRemark42LastCommentsLoaded) {
+        return;
+      }
+
+      window.__masanamRemark42LastCommentsLoaded = true;
+
+      function getRemarkTheme() {
+        const html = document.documentElement;
+
+        if (html.hasAttribute('data-mode')) {
+          return html.getAttribute('data-mode') === 'dark' ? 'dark' : 'light';
+        }
+
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      window.remark_config = Object.assign({}, window.remark_config || {}, {
+        host: '{{ site.comments.remark42.host }}',
+        site_id: '{{ site.comments.remark42.site_id }}',
+        components: ['last-comments'],
+        max_last_comments: 6,
+        theme: getRemarkTheme(),
+        locale: 'ko',
+        no_footer: true
+      });
+
+      const script = document.createElement('script');
+      script.src = window.remark_config.host + '/web/last-comments.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  </script>
+
+  <style>
+    .recent-comments-panel {
+      margin-top: 1.25rem;
+    }
+
+    .recent-comments-panel__list {
+      margin-top: 0.5rem;
+      margin-left: 0.25rem;
+      padding: 0.15rem 0 0;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .recent-comments-panel__list a {
+      color: inherit;
+    }
+
+    .recent-comments-panel__list a:hover {
+      color: var(--link-color);
+    }
+
+    .recent-comments-panel__list ul,
+    .recent-comments-panel__list ol {
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .recent-comments-panel__list li {
+      margin-bottom: 0.55rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid var(--main-border-color);
+    }
+
+    .recent-comments-panel__list li:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+  </style>
+{% endif %}
