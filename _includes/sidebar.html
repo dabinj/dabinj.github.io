@@ -35,7 +35,7 @@
       </li>
 
       {% assign categories_expanded = false %}
-      {% if page.layout == 'categories' or page.layout == 'category' or page.categories.size > 0 %}
+      {% if page.layout == 'home' or page.url == '/' or page.layout == 'categories' or page.layout == 'category' or page.categories.size > 0 %}
         {% assign categories_expanded = true %}
       {% endif %}
 
