@@ -7,6 +7,55 @@
   <div id="remark42" class="remark42-comments__embed"></div>
 </section>
 
+<script>
+  (function () {
+    const html = document.documentElement;
+
+    function getRemarkTheme() {
+      if (html.hasAttribute('data-mode')) {
+        return html.getAttribute('data-mode') === 'dark' ? 'dark' : 'light';
+      }
+
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    window.remark42GetTheme = getRemarkTheme;
+  })();
+
+  var remark_config = window.remark_config = {
+    host: '{{ site.comments.remark42.host }}',
+    site_id: '{{ site.comments.remark42.site_id }}',
+    url: window.location.origin + window.location.pathname,
+    components: ['embed'],
+    theme: window.remark42GetTheme(),
+    locale: 'ko',
+    no_footer: true
+  };
+
+  (function () {
+    const script = document.createElement('script');
+    script.src = remark_config.host + '/web/embed.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  })();
+
+  (function () {
+    addEventListener('message', (event) => {
+      if (
+        event.source === window &&
+        event.data &&
+        typeof ModeToggle !== 'undefined' &&
+        event.data.direction === ModeToggle.ID &&
+        window.REMARK42 &&
+        typeof window.REMARK42.changeTheme === 'function'
+      ) {
+        const mode = event.data.message;
+        window.REMARK42.changeTheme(mode === ModeToggle.DARK_MODE ? 'dark' : 'light');
+      }
+    });
+  })();
+</script>
+
 <style>
   .remark42-comments {
     margin-top: 2.5rem;
