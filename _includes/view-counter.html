@@ -1,0 +1,163 @@
+{% assign view_url = include.url | default: page.url | relative_url %}
+{% assign view_label = include.label | default: 'views' %}
+{% assign view_icon = include.icon | default: 'book-half' %}
+
+<span
+  class="view-counter {{ include.class }}"
+  data-view-counter
+  data-view-url="{{ view_url }}"
+  data-view-endpoint="{{ site.comments.remark42.host }}/api/views"
+>
+  <i class="fas fa-{{ view_icon }}" aria-hidden="true"></i>
+  <span>{{ view_label }}</span>
+  <strong data-view-count>0</strong>
+</span>
+
+<script>
+  (function () {
+    if (window.__masanamViewCounterLoaded) {
+      window.__masanamViewCounterRefresh && window.__masanamViewCounterRefresh();
+      return;
+    }
+
+    window.__masanamViewCounterLoaded = true;
+
+    const visitorKey = 'masanam:view-counter:visitor-id';
+
+    function todayKey() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function getVisitorId() {
+      try {
+        if (!window.localStorage) {
+          return null;
+        }
+
+        let visitorId = localStorage.getItem(visitorKey);
+        if (!visitorId) {
+          visitorId = window.crypto && crypto.randomUUID
+            ? crypto.randomUUID()
+            : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+          localStorage.setItem(visitorKey, visitorId);
+        }
+        return visitorId;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function hasViewedToday(viewUrl) {
+      try {
+        return window.localStorage && localStorage.getItem(`masanam:view-counter:${viewUrl}:date`) === todayKey();
+      } catch (error) {
+        return false;
+      }
+    }
+
+    function markViewedToday(viewUrl) {
+      try {
+        if (window.localStorage) {
+          localStorage.setItem(`masanam:view-counter:${viewUrl}:date`, todayKey());
+        }
+      } catch (error) {}
+    }
+
+    function render(elements, count) {
+      const normalized = Number.isFinite(Number(count)) && Number(count) > 0 ? Number(count) : 0;
+      elements.forEach((element) => {
+        const countEl = element.querySelector('[data-view-count]');
+        if (countEl) {
+          countEl.textContent = normalized.toLocaleString('ko-KR');
+        }
+      });
+    }
+
+    async function requestView(endpoint, viewUrl, method, visitorId) {
+      const url = method === 'GET' ? `${endpoint}?url=${encodeURIComponent(viewUrl)}` : endpoint;
+      const response = await fetch(url, {
+        method,
+        headers: method === 'POST' ? { 'Content-Type': 'application/json' } : undefined,
+        body: method === 'POST' ? JSON.stringify({ url: viewUrl, visitor_id: visitorId }) : undefined
+      });
+
+      if (!response.ok) {
+        throw new Error(`View request failed: ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    async function refreshCounters() {
+      const groups = new Map();
+      document.querySelectorAll('[data-view-counter]').forEach((element) => {
+        const endpoint = element.dataset.viewEndpoint;
+        const viewUrl = element.dataset.viewUrl;
+
+        if (!endpoint || !viewUrl || !window.fetch) {
+          return;
+        }
+
+        const key = `${endpoint} ${viewUrl}`;
+        const group = groups.get(key) || { endpoint, viewUrl, elements: [] };
+        group.elements.push(element);
+        groups.set(key, group);
+      });
+
+      const visitorId = getVisitorId();
+
+      await Promise.all(Array.from(groups.values()).map(async (group) => {
+        try {
+          const current = await requestView(group.endpoint, group.viewUrl, 'GET');
+          render(group.elements, current.count);
+
+          if (!visitorId || hasViewedToday(group.viewUrl)) {
+            return;
+          }
+
+          const updated = await requestView(group.endpoint, group.viewUrl, 'POST', visitorId);
+          markViewedToday(group.viewUrl);
+          render(group.elements, updated.count);
+        } catch (error) {
+          group.elements.forEach((element) => element.classList.add('unavailable'));
+        }
+      }));
+    }
+
+    window.__masanamViewCounterRefresh = refreshCounters;
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', refreshCounters, { once: true });
+    } else {
+      refreshCounters();
+    }
+  })();
+</script>
+
+<style>
+  .view-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 1.65rem;
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 999px;
+    color: var(--text-muted-color);
+    font-size: 0.82rem;
+    line-height: 1;
+  }
+
+  .view-counter strong {
+    color: var(--text-color);
+    font-weight: 600;
+  }
+
+  .view-counter.unavailable {
+    opacity: 0.65;
+  }
+</style>

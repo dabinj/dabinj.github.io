@@ -70,18 +70,8 @@ tail_includes:
           </em>
         </span>
 
-        {% capture page_views_target -%}
-{{ page.url | absolute_url }}?v=2
-        {%- endcapture %}
-        {% capture page_views_url -%}
-https://hitscounter.dev/api/hit?url={{ page_views_target | strip | url_encode }}&label=views&icon=book-half&color=%23212529&message=&style=flat&tz=Asia%2FSeoul
-        {%- endcapture %}
         <div class="mt-2">
-          <img
-            src="{{ page_views_url | strip }}"
-            alt="Post views badge"
-            style="max-width: 90px; width: 100%; height: auto;"
-          >
+          {% include view-counter.html url=page.url label='views' icon='book-half' %}
         </div>
       </div>
       <!-- .d-flex -->

@@ -1,0 +1,24 @@
+<section id="access-site-visitors" class="site-visitors-panel">
+  <div class="site-visitors-panel__counter">
+    {% include view-counter.html url='/' label='visitors' icon='users' %}
+  </div>
+</section>
+
+<style>
+  .site-visitors-panel {
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .site-visitors-panel__counter {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  #sidebar .site-visitors-panel .view-counter {
+    min-height: 1.9rem;
+    padding: 0.34rem 0.72rem;
+    font-size: 0.88rem;
+  }
+</style>
