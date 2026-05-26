@@ -1,0 +1,70 @@
+{% if site.comments.active == 'remark42' %}
+  <script>
+    (function () {
+      if (window.__masanamRemark42Loaded) {
+        return;
+      }
+
+      const hasEmbed = Boolean(document.getElementById('remark42'));
+      const hasLastComments = Boolean(document.querySelector('.remark42__last-comments'));
+
+      if (!hasEmbed && !hasLastComments) {
+        return;
+      }
+
+      window.__masanamRemark42Loaded = true;
+
+      function getRemarkTheme() {
+        const html = document.documentElement;
+
+        if (html.hasAttribute('data-mode')) {
+          return html.getAttribute('data-mode') === 'dark' ? 'dark' : 'light';
+        }
+
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      window.remark42GetTheme = getRemarkTheme;
+
+      const components = [];
+
+      if (hasEmbed) {
+        components.push('embed');
+      }
+
+      if (hasLastComments) {
+        components.push('last-comments');
+      }
+
+      window.remark_config = {
+        host: '{{ site.comments.remark42.host }}',
+        site_id: '{{ site.comments.remark42.site_id }}',
+        url: window.location.origin + window.location.pathname,
+        components: components,
+        max_last_comments: 6,
+        theme: getRemarkTheme(),
+        locale: 'ko',
+        no_footer: true
+      };
+
+      const script = document.createElement('script');
+      script.src = window.remark_config.host + '/web/embed.js';
+      script.defer = true;
+      document.head.appendChild(script);
+
+      addEventListener('message', (event) => {
+        if (
+          event.source === window &&
+          event.data &&
+          typeof ModeToggle !== 'undefined' &&
+          event.data.direction === ModeToggle.ID &&
+          window.REMARK42 &&
+          typeof window.REMARK42.changeTheme === 'function'
+        ) {
+          const mode = event.data.message;
+          window.REMARK42.changeTheme(mode === ModeToggle.DARK_MODE ? 'dark' : 'light');
+        }
+      });
+    })();
+  </script>
+{% endif %}

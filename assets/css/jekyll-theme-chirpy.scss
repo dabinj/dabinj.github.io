@@ -110,6 +110,58 @@ main h3 {
   font-weight: 600;
 }
 
+#panel-wrapper .panel-heading {
+  font-size: 0.98rem;
+  font-weight: 600;
+}
+
+#panel-wrapper .access {
+  color: #cccccc;
+}
+
+#panel-wrapper .access .panel-heading {
+  color: #cccccc;
+}
+
+#panel-wrapper .update-list {
+  margin-top: 0.5rem !important;
+}
+
+#panel-wrapper .update-list__item {
+  padding: 0.35rem 0 0.55rem;
+  border-bottom: 1px solid var(--main-border-color);
+  line-height: 1.35;
+}
+
+#panel-wrapper .update-list__item:last-child {
+  border-bottom: 0;
+}
+
+#panel-wrapper .update-list__title {
+  display: block;
+  overflow: hidden;
+  color: inherit;
+  font-size: 0.96rem;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#panel-wrapper .update-list__title:hover {
+  color: var(--link-color);
+}
+
+#panel-wrapper .update-list__date {
+  display: block;
+  margin-top: 0.2rem;
+  color: #cccccc;
+  font-size: 0.82rem;
+}
+
+#toc-wrapper #toc ul {
+  font-size: 0.96rem;
+}
+
 .category-card-page .category-post-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

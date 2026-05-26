@@ -36,6 +36,7 @@ layout: compress
           <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
             <div class="access">
               {% include_cached update-list.html lang=lang %}
+              {% include popular-likes.html lang=lang variant='panel' limit=5 heading='인기글' %}
               {% include recent-comments.html lang=lang %}
             </div>
 
@@ -75,6 +76,8 @@ layout: compress
     {% endif %}
 
     <!-- JavaScripts -->
+
+    {% include remark42-loader.html %}
 
     {% include js-selector.html %}
 

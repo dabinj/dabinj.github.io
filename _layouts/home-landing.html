@@ -9,14 +9,17 @@ layout: default
     <p class="home-cover-summary">
       Bioinformatics, microbiome papers, GitHub projects, and quiet daily records.
     </p>
-    <a class="home-cover-scroll" href="#home-details">Scroll Down</a>
+    <a class="home-cover-scroll" href="#home-posts">Scroll Down</a>
   </section>
 
-  <section id="home-details" class="home-details content">
-    {{ content }}
-  </section>
+  {% assign home_content = content | strip %}
+  {% if home_content != '' %}
+    <section id="home-details" class="home-details content">
+      {{ content }}
+    </section>
+  {% endif %}
 
-  <section class="home-posts">
+  <section id="home-posts" class="home-posts">
     <div class="home-posts-header">
       <p class="home-posts-kicker">Recent Notes</p>
       <h2>최근 글</h2>
@@ -43,4 +46,6 @@ layout: default
       {% endfor %}
     </div>
   </section>
+
+  {% include popular-likes.html variant='home' limit=5 heading='인기글' kicker='Popular Notes' %}
 </article>

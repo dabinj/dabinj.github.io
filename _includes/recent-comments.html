@@ -4,41 +4,6 @@
     <div class="remark42__last-comments recent-comments-panel__list" data-max="6"></div>
   </section>
 
-  <script>
-    (function () {
-      if (window.__masanamRemark42LastCommentsLoaded) {
-        return;
-      }
-
-      window.__masanamRemark42LastCommentsLoaded = true;
-
-      function getRemarkTheme() {
-        const html = document.documentElement;
-
-        if (html.hasAttribute('data-mode')) {
-          return html.getAttribute('data-mode') === 'dark' ? 'dark' : 'light';
-        }
-
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-
-      window.remark_config = Object.assign({}, window.remark_config || {}, {
-        host: '{{ site.comments.remark42.host }}',
-        site_id: '{{ site.comments.remark42.site_id }}',
-        components: ['last-comments'],
-        max_last_comments: 6,
-        theme: getRemarkTheme(),
-        locale: 'ko',
-        no_footer: true
-      });
-
-      const script = document.createElement('script');
-      script.src = window.remark_config.host + '/web/last-comments.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  </script>
-
   <style>
     .recent-comments-panel {
       margin-top: 1.25rem;
