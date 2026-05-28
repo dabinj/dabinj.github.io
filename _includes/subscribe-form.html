@@ -1,0 +1,367 @@
+<section class="subscribe-panel" aria-label="블로그 구독">
+  <button class="subscribe-panel__toggle" type="button" data-subscribe-toggle aria-haspopup="dialog">
+    <i class="fas fa-envelope-open-text" aria-hidden="true"></i>
+    <span>Subscribe</span>
+  </button>
+
+  <div class="subscribe-modal" data-subscribe-modal hidden>
+    <div class="subscribe-modal__backdrop" data-subscribe-close></div>
+    <section
+      class="subscribe-modal__dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="subscribe-modal-title"
+    >
+      <button class="subscribe-modal__close" type="button" data-subscribe-close aria-label="닫기">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+
+      <div class="subscribe-modal__badge">
+        <i class="fas fa-paper-plane" aria-hidden="true"></i>
+      </div>
+
+      <p class="subscribe-modal__eyebrow">Masanam Newsletter</p>
+      <h2 id="subscribe-modal-title">블로그 업데이트를 메일로 받아보세요</h2>
+      <p class="subscribe-modal__description">
+        블로그의 새로운 글과 최신 BI 연구 논문 리뷰, 관련 동향을 담은 뉴스레터를 이메일로 받아보실 수 있습니다.
+      </p>
+
+      <div class="subscribe-modal__features" aria-label="구독 내용">
+        <span><i class="fas fa-pen-nib" aria-hidden="true"></i> 새 글 업데이트</span>
+        <span><i class="fas fa-dna" aria-hidden="true"></i> BI 연구 논문 리뷰</span>
+        <span><i class="fas fa-chart-line" aria-hidden="true"></i> 동향 뉴스레터</span>
+      </div>
+
+      <form
+        class="subscribe-modal__form"
+        data-subscribe-form
+        data-subscribe-endpoint="{{ site.comments.remark42.host }}/api/subscribe"
+      >
+        <label class="subscribe-modal__label" for="subscribe-email">이메일 주소</label>
+        <div class="subscribe-modal__row">
+          <input
+            id="subscribe-email"
+            class="subscribe-modal__input"
+            type="email"
+            name="email"
+            placeholder="email@example.com"
+            autocomplete="email"
+            required
+          >
+          <button class="subscribe-modal__submit" type="submit">
+            구독하기
+          </button>
+        </div>
+        <p class="subscribe-modal__message" data-subscribe-message>
+          확인 메일을 누르면 구독이 완료됩니다.
+        </p>
+      </form>
+    </section>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const panel = document.querySelector('.subscribe-panel');
+    if (!panel) {
+      return;
+    }
+
+    const modal = panel.querySelector('[data-subscribe-modal]');
+    const toggle = panel.querySelector('[data-subscribe-toggle]');
+    const form = panel.querySelector('[data-subscribe-form]');
+    const input = panel.querySelector('.subscribe-modal__input');
+    const message = panel.querySelector('[data-subscribe-message]');
+    const submit = panel.querySelector('.subscribe-modal__submit');
+
+    function setOpen(open) {
+      modal.hidden = !open;
+      document.body.classList.toggle('subscribe-modal-open', open);
+
+      if (open && input) {
+        window.setTimeout(function () {
+          input.focus();
+        }, 50);
+      }
+    }
+
+    toggle.addEventListener('click', function () {
+      setOpen(true);
+    });
+
+    modal.addEventListener('click', function (event) {
+      if (event.target.closest('[data-subscribe-close]')) {
+        setOpen(false);
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !modal.hidden) {
+        setOpen(false);
+      }
+    });
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      const endpoint = form.dataset.subscribeEndpoint;
+      const formData = new FormData(form);
+      const email = String(formData.get('email') || '').trim();
+
+      if (!endpoint || !email || typeof fetch !== 'function') {
+        message.textContent = '구독 신청을 처리할 수 없습니다.';
+        return;
+      }
+
+      submit.disabled = true;
+      message.textContent = '구독 신청을 보내는 중입니다.';
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
+        });
+        const data = await response.json();
+
+        if (!response.ok || !data.ok) {
+          throw new Error(data.error || 'subscribe_failed');
+        }
+
+        if (data.status === 'active') {
+          message.textContent = '이미 구독 중인 이메일입니다.';
+        } else if (data.email_sent) {
+          message.textContent = '확인 메일을 보냈습니다. 메일함을 확인해 주세요.';
+        } else {
+          message.textContent = '구독 신청이 저장되었습니다. 메일 발송 설정 후 알림을 받을 수 있습니다.';
+        }
+        form.reset();
+      } catch (error) {
+        message.textContent = '구독 신청에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+      } finally {
+        submit.disabled = false;
+      }
+    });
+  })();
+</script>
+
+<style>
+  .subscribe-panel {
+    width: auto;
+    margin-top: 0;
+  }
+
+  .subscribe-panel__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2rem;
+    padding: 0.38rem 0.72rem;
+    border: 1px solid var(--main-border-color);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #cccccc;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+
+  .subscribe-panel__toggle:hover,
+  .subscribe-panel__toggle:focus-visible {
+    border-color: var(--link-color);
+    color: var(--link-color);
+  }
+
+  .subscribe-modal[hidden] {
+    display: none;
+  }
+
+  .subscribe-modal {
+    position: fixed;
+    z-index: 1100;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 1.25rem;
+  }
+
+  .subscribe-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.68);
+    backdrop-filter: blur(6px);
+  }
+
+  .subscribe-modal__dialog {
+    position: relative;
+    width: min(100%, 680px);
+    overflow: hidden;
+    padding: 1.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0.65rem;
+    background:
+      radial-gradient(circle at top right, rgba(78, 124, 255, 0.18), transparent 34%),
+      linear-gradient(145deg, #16191f 0%, #101216 100%);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    color: #f4f6fb;
+  }
+
+  .subscribe-modal__close {
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #d7dce6;
+  }
+
+  .subscribe-modal__close:hover,
+  .subscribe-modal__close:focus-visible {
+    border-color: var(--link-color);
+    color: var(--link-color);
+  }
+
+  .subscribe-modal__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.45rem;
+    height: 2.45rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0.6rem;
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--link-color);
+    font-size: 1rem;
+  }
+
+  .subscribe-modal__eyebrow {
+    margin: 0 0 0.35rem;
+    color: #9fa8b8;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14rem;
+    text-transform: uppercase;
+  }
+
+  .subscribe-modal h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.55rem;
+    line-height: 1.25;
+  }
+
+  .subscribe-modal__description {
+    margin: 0.8rem 0 0;
+    color: #cdd3df;
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .subscribe-modal__features {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 1.15rem;
+  }
+
+  .subscribe-modal__features span {
+    display: flex;
+    min-height: 3.25rem;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.045);
+    color: #dce1ea;
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .subscribe-modal__features i {
+    color: var(--link-color);
+  }
+
+  .subscribe-modal__form {
+    margin-top: 1.2rem;
+  }
+
+  .subscribe-modal__label {
+    display: block;
+    margin-bottom: 0.45rem;
+    color: #cdd3df;
+    font-size: 0.84rem;
+    font-weight: 700;
+  }
+
+  .subscribe-modal__row {
+    display: flex;
+    gap: 0.55rem;
+  }
+
+  .subscribe-modal__input {
+    min-width: 0;
+    flex: 1;
+    height: 2.55rem;
+    padding: 0 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0.5rem;
+    background: rgba(0, 0, 0, 0.22);
+    color: #ffffff;
+    font-size: 0.94rem;
+  }
+
+  .subscribe-modal__input:focus {
+    border-color: var(--link-color);
+    outline: none;
+  }
+
+  .subscribe-modal__submit {
+    min-width: 6.4rem;
+    height: 2.55rem;
+    padding: 0 0.9rem;
+    border: 1px solid var(--link-color);
+    border-radius: 0.5rem;
+    background: var(--link-color);
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .subscribe-modal__submit:disabled {
+    cursor: wait;
+    opacity: 0.7;
+  }
+
+  .subscribe-modal__message {
+    margin: 0.6rem 0 0;
+    color: #b7bfce;
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
+  .subscribe-modal-open {
+    overflow: hidden;
+  }
+
+  @media (max-width: 575px) {
+    .subscribe-modal__dialog {
+      padding: 1.25rem;
+    }
+
+    .subscribe-modal__features {
+      grid-template-columns: 1fr;
+    }
+
+    .subscribe-modal__row {
+      flex-direction: column;
+    }
+
+    .subscribe-modal__submit {
+      width: 100%;
+    }
+  }
+</style>

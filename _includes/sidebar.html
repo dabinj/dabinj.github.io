@@ -21,7 +21,10 @@
       <a href="{{ '/' | relative_url }}">{{ site.display_title | default: site.title }}</a>
     </h1>
     <p class="site-subtitle fst-italic mb-0">{{ site.tagline }}</p>
-    {% include site-visitors.html %}
+    <div class="sidebar-actions">
+      {% include site-visitors.html %}
+      {% include subscribe-form.html %}
+    </div>
   </header>
   <!-- .profile-wrapper -->
 
