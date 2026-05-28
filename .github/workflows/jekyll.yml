@@ -68,3 +68,13 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Checkout for subscriber notification
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Notify subscribers about changed posts
+        run: python .github/scripts/notify_subscribers.py
+        env:
+          GITHUB_EVENT_BEFORE: ${{ github.event.before }}
+          SUBSCRIBE_NOTIFY_TOKEN: ${{ secrets.SUBSCRIBE_NOTIFY_TOKEN }}
+          SUBSCRIBE_NOTIFY_ENDPOINT: https://comments.masanam.co.kr/api/subscribers/notify
