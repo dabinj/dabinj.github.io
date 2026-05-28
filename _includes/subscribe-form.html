@@ -1,7 +1,12 @@
-<section class="subscribe-panel" aria-label="블로그 구독">
+<section
+  class="subscribe-panel"
+  aria-label="블로그 구독"
+  data-subscriber-count-endpoint="{{ site.comments.remark42.host }}/api/subscribers/count"
+>
   <button class="subscribe-panel__toggle" type="button" data-subscribe-toggle aria-haspopup="dialog">
     <i class="fas fa-envelope-open-text" aria-hidden="true"></i>
     <span>Subscribe</span>
+    <strong class="subscribe-panel__count" data-subscriber-count hidden>0</strong>
   </button>
 
   <div class="subscribe-modal" data-subscribe-modal hidden>
@@ -73,6 +78,27 @@
     const input = panel.querySelector('.subscribe-modal__input');
     const message = panel.querySelector('[data-subscribe-message]');
     const submit = panel.querySelector('.subscribe-modal__submit');
+    const countEl = panel.querySelector('[data-subscriber-count]');
+    const countEndpoint = panel.dataset.subscriberCountEndpoint;
+
+    async function refreshSubscriberCount() {
+      if (!countEl || !countEndpoint || typeof fetch !== 'function') {
+        return;
+      }
+
+      try {
+        const response = await fetch(countEndpoint);
+        if (!response.ok) {
+          throw new Error('subscriber_count_failed');
+        }
+        const data = await response.json();
+        const count = Number(data.count);
+        if (Number.isFinite(count) && count > 0) {
+          countEl.textContent = count.toLocaleString('ko-KR');
+          countEl.hidden = false;
+        }
+      } catch (error) {}
+    }
 
     function setOpen(open) {
       modal.hidden = !open;
@@ -136,12 +162,15 @@
           message.textContent = '구독 신청이 저장되었습니다. 메일 발송 설정 후 알림을 받을 수 있습니다.';
         }
         form.reset();
+        refreshSubscriberCount();
       } catch (error) {
         message.textContent = '구독 신청에 실패했습니다. 잠시 후 다시 시도해 주세요.';
       } finally {
         submit.disabled = false;
       }
     });
+
+    refreshSubscriberCount();
   })();
 </script>
 
@@ -169,6 +198,21 @@
   .subscribe-panel__toggle:focus-visible {
     border-color: var(--link-color);
     color: var(--link-color);
+  }
+
+  .subscribe-panel__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: rgba(78, 124, 255, 0.18);
+    color: #dce5ff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1;
   }
 
   .subscribe-modal[hidden] {
