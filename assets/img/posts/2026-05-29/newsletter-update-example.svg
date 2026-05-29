@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Masanam blog newsletter update email example</title>
+  <desc id="desc">An example image of the Masanam blog newsletter update email design.</desc>
+  <defs>
+    <radialGradient id="bg-glow" cx="74%" cy="10%" r="74%">
+      <stop offset="0%" stop-color="#4e7cff" stop-opacity="0.28"/>
+      <stop offset="42%" stop-color="#4e7cff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0b0d12" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="card-glow" cx="88%" cy="0%" r="58%">
+      <stop offset="0%" stop-color="#4e7cff" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#4e7cff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="card-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16191f"/>
+      <stop offset="100%" stop-color="#101216"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#000000" flood-opacity="0.42"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0b0d12"/>
+  <rect width="1200" height="630" fill="url(#bg-glow)"/>
+
+  <text x="100" y="92" fill="#9fa8b8" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3">MASANAM BLOG</text>
+  <text x="100" y="144" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="44" font-weight="800">Newsletter Update Example</text>
+  <text x="100" y="184" fill="#cdd3df" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="20">A preview of the actual update email template</text>
+
+  <g filter="url(#shadow)">
+    <rect x="246" y="218" width="708" height="342" rx="18" fill="#12151b"/>
+    <rect x="246" y="218" width="708" height="342" rx="18" fill="url(#card-bg)" stroke="rgba(255,255,255,0.14)"/>
+    <rect x="246" y="218" width="708" height="342" rx="18" fill="url(#card-glow)"/>
+
+    <rect x="286" y="258" width="54" height="54" rx="14" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.16)"/>
+    <path d="M300 279l13 9 13-9m-27-5h28c3 0 5 2 5 5v18c0 3-2 5-5 5h-28c-3 0-5-2-5-5v-18c0-3 2-5 5-5z" fill="none" stroke="#7f9cff" stroke-width="2.4" stroke-linejoin="round"/>
+
+    <text x="286" y="352" fill="#9fa8b8" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" letter-spacing="2.4">MASANAM NEWSLETTER</text>
+    <text x="286" y="397" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="30" font-weight="800">Github 블로그에 구독 &amp; 알림 시스템 구축하기</text>
+    <text x="286" y="436" fill="#cdd3df" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="17">Masanam blog에 새 글 또는 업데이트가 있습니다.</text>
+
+    <rect x="286" y="462" width="128" height="40" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(255,255,255,0.11)"/>
+    <text x="314" y="487" fill="#dce1ea" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="14">새 글 업데이트</text>
+    <rect x="426" y="462" width="148" height="40" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(255,255,255,0.11)"/>
+    <text x="456" y="487" fill="#dce1ea" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="14">BI 연구 논문 리뷰</text>
+    <rect x="586" y="462" width="132" height="40" rx="10" fill="rgba(255,255,255,0.045)" stroke="rgba(255,255,255,0.11)"/>
+    <text x="616" y="487" fill="#dce1ea" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="14">동향 뉴스레터</text>
+
+    <rect x="286" y="522" width="190" height="46" rx="10" fill="#4e7cff"/>
+    <text x="353" y="551" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="16" font-weight="700">글 읽기</text>
+    <text x="500" y="551" fill="#9fa8b8" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif" font-size="13">Masanam blog · Bioinformatics &amp; Life</text>
+  </g>
+</svg>
