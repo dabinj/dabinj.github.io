@@ -35,10 +35,10 @@ def changed_posts():
         parts = line.split("\t")
         status = parts[0]
         path = parts[-1]
-        if status.startswith("D"):
+        if status != "A":
             continue
         if POST_RE.match(path):
-            posts.append((status[0], path))
+            posts.append(path)
     return posts
 
 
@@ -64,15 +64,12 @@ def parse_front_matter(path):
     return meta
 
 
-def post_url(path, status):
+def post_url(path):
     match = POST_RE.match(path)
     if not match:
         raise ValueError(f"invalid post path: {path}")
 
-    url = f"/posts/{match.group('slug')}/"
-    if status == "M":
-        url = f"{url}?updated={os.environ.get('GITHUB_SHA', '')[:7]}"
-    return url
+    return f"/posts/{match.group('slug')}/"
 
 
 def notify(endpoint, token, payload):
@@ -105,7 +102,7 @@ def main():
         return 0
 
     seen = set()
-    for status, path in posts:
+    for path in posts:
         if path in seen:
             continue
         seen.add(path)
@@ -115,7 +112,7 @@ def main():
         summary = meta.get("description") or ""
         payload = {
             "title": title,
-            "url": post_url(path, status),
+            "url": post_url(path),
             "summary": summary,
         }
 
