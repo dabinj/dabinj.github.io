@@ -141,13 +141,14 @@ main h3 {
 }
 
 #panel-wrapper .update-list {
-  margin-top: 0.5rem !important;
+  margin-top: 0.5rem;
+  margin-left: 0.25rem;
+  padding: 0;
 }
 
 #panel-wrapper .update-list__item {
   padding: 0.35rem 0 0.55rem;
   border-bottom: 1px solid var(--main-border-color);
-  line-height: 1.35;
 }
 
 #panel-wrapper .update-list__item:last-child {
@@ -173,6 +174,13 @@ main h3 {
   margin-top: 0.2rem;
   color: #cccccc;
   font-size: 0.82rem;
+}
+
+@media all and (min-width: 1200px) {
+  #panel-wrapper .access {
+    width: calc(100% + 2.5rem);
+    max-width: calc(100% + 2.5rem);
+  }
 }
 
 #toc-wrapper #toc ul {
