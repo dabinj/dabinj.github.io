@@ -11,6 +11,7 @@
   <i class="fas fa-{{ view_icon }}" aria-hidden="true"></i>
   <span>{{ view_label }}</span>
   <strong data-view-count>0</strong>
+  <span class="view-counter__today" data-view-today hidden>· today <strong>0</strong></span>
 </span>
 
 <script>
@@ -67,12 +68,20 @@
       } catch (error) {}
     }
 
-    function render(elements, count) {
+    function render(elements, count, today) {
       const normalized = Number.isFinite(Number(count)) && Number(count) > 0 ? Number(count) : 0;
+      const normalizedToday = Number.isFinite(Number(today)) && Number(today) > 0 ? Number(today) : 0;
       elements.forEach((element) => {
         const countEl = element.querySelector('[data-view-count]');
         if (countEl) {
           countEl.textContent = normalized.toLocaleString('ko-KR');
+        }
+
+        const todayEl = element.querySelector('[data-view-today]');
+        const todayCountEl = todayEl && todayEl.querySelector('strong');
+        if (todayEl && todayCountEl) {
+          todayCountEl.textContent = normalizedToday.toLocaleString('ko-KR');
+          todayEl.hidden = false;
         }
       });
     }
@@ -113,7 +122,7 @@
       await Promise.all(Array.from(groups.values()).map(async (group) => {
         try {
           const current = await requestView(group.endpoint, group.viewUrl, 'GET');
-          render(group.elements, current.count);
+          render(group.elements, current.count, current.today);
 
           if (!visitorId || hasViewedToday(group.viewUrl)) {
             return;
@@ -121,7 +130,7 @@
 
           const updated = await requestView(group.endpoint, group.viewUrl, 'POST', visitorId);
           markViewedToday(group.viewUrl);
-          render(group.elements, updated.count);
+          render(group.elements, updated.count, updated.today);
         } catch (error) {
           group.elements.forEach((element) => element.classList.add('unavailable'));
         }
@@ -155,6 +164,12 @@
   .view-counter strong {
     color: var(--text-color);
     font-weight: 600;
+  }
+
+  .view-counter__today {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .view-counter.unavailable {
