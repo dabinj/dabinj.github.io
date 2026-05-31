@@ -13,9 +13,17 @@ layout: page
   </h1>
 
   <div class="category-post-grid content">
+    {% assign category_new_period = 604800 %}
+    {% assign category_now = site.time | date: '%s' | plus: 0 %}
     {% for post in page.posts %}
-      <article class="category-post-card">
-        {% assign escaped_title = post.title | escape %}
+      {% assign post_date = post.date | date: '%s' | plus: 0 %}
+      {% assign post_age = category_now | minus: post_date %}
+      {% assign post_is_new = false %}
+      {% if post_age >= 0 and post_age <= category_new_period %}
+        {% assign post_is_new = true %}
+      {% endif %}
+      {% assign escaped_title = post.title | escape %}
+      <article class="category-post-card" data-full-title="{{ escaped_title }}">
         {% assign thumbnail = nil %}
         {% if post.image %}
           {% assign thumbnail = post.image.path | default: post.image %}
@@ -26,7 +34,7 @@ layout: page
           {% endif %}
         {% endif %}
 
-        <a class="category-post-thumb" href="{{ post.url | relative_url }}" aria-label="{{ escaped_title }}">
+        <a class="category-post-thumb{% if post.image.fit == 'contain' %} contain{% endif %}" href="{{ post.url | relative_url }}" aria-label="{{ escaped_title }}">
           {% if thumbnail %}
             <img src="{{ thumbnail | relative_url }}" alt="{{ escaped_title }}">
           {% else %}
@@ -39,6 +47,9 @@ layout: page
         <div class="category-post-body">
           <div class="category-post-meta">
             {% include datetime.html date=post.date class='text-muted small text-nowrap' lang=lang %}
+            {% if post_is_new %}
+              <span class="category-post-new">New</span>
+            {% endif %}
           </div>
 
           <h2 class="category-post-title">

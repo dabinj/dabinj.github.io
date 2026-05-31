@@ -41,6 +41,8 @@
       {% assign categories_expanded = true %}
 
       {% assign category_order = 'Bioinformatics|Microbiome|Project|Essay|Life' | split: '|' %}
+      {% assign sidebar_new_period = 604800 %}
+      {% assign sidebar_now = site.time | date: '%s' | plus: 0 %}
 
       <!-- the real tabs -->
       {% for tab in site.tabs %}
@@ -74,6 +76,14 @@
                   {% assign posts_of_category = site.categories[category_name] %}
                   {% if posts_of_category %}
                     {% assign first_post = posts_of_category | first %}
+                    {% assign category_has_new = false %}
+                    {% for post in posts_of_category %}
+                      {% assign post_date = post.date | date: '%s' | plus: 0 %}
+                      {% assign post_age = sidebar_now | minus: post_date %}
+                      {% if post_age >= 0 and post_age <= sidebar_new_period %}
+                        {% assign category_has_new = true %}
+                      {% endif %}
+                    {% endfor %}
 
                     {% if category_name == first_post.categories[0] %}
                     {% assign sub_categories = '' | split: '' %}
@@ -91,7 +101,7 @@
                       {% when 'Bioinformatics' %}
                         {% assign ordered_sub_categories = 'Pipeline Development' | split: '|' %}
                       {% when 'Microbiome' %}
-                        {% assign ordered_sub_categories = 'Paper Review|기초 개념' | split: '|' %}
+                        {% assign ordered_sub_categories = 'Paper Review|Basics' | split: '|' %}
                       {% when 'Project' %}
                         {% assign ordered_sub_categories = 'Side Projects' | split: '|' %}
                       {% when 'Essay' %}
@@ -140,9 +150,13 @@
                           aria-expanded="{% if category_is_active %}true{% else %}false{% endif %}"
                           aria-controls="{{ sub_category_id }}"
                         >
-                          <span>
+                          <span class="sidebar-category-label">
                             <span class="sidebar-category-emoji">{{ category_emoji }}</span>
-                            {{ category_name }}
+                            <span>{{ category_name }}</span>
+                            <span class="sidebar-category-count">({{ posts_of_category.size }})</span>
+                            {% if category_has_new %}
+                              <span class="sidebar-category-new">New</span>
+                            {% endif %}
                           </span>
                           <i class="fas fa-angle-down sidebar-category-parent-icon"></i>
                         </button>
@@ -153,13 +167,26 @@
                         >
                           {% for sub_category in ordered_sub_categories %}
                             {% if sub_categories contains sub_category %}
+                              {% assign subcategory_posts = site.categories[sub_category] %}
+                              {% assign subcategory_has_new = false %}
+                              {% for post in subcategory_posts %}
+                                {% assign post_date = post.date | date: '%s' | plus: 0 %}
+                                {% assign post_age = sidebar_now | minus: post_date %}
+                                {% if post_age >= 0 and post_age <= sidebar_new_period %}
+                                  {% assign subcategory_has_new = true %}
+                                {% endif %}
+                              {% endfor %}
                               <li>
                                 {% capture sub_category_url %}/categories/{{ sub_category | slugify | url_encode }}/{% endcapture %}
                                 <a
                                   href="{{ sub_category_url | relative_url }}"
                                   class="sidebar-category-link subcategory{% if page.title == sub_category or page.categories contains sub_category %} active{% endif %}"
                                 >
-                                  {{ sub_category }}
+                                  <span>{{ sub_category }}</span>
+                                  <span class="sidebar-category-count">({{ subcategory_posts.size }})</span>
+                                  {% if subcategory_has_new %}
+                                    <span class="sidebar-category-new">New</span>
+                                  {% endif %}
                                 </a>
                               </li>
                             {% endif %}
@@ -171,9 +198,13 @@
                           href="{{ top_category_url | relative_url }}"
                           class="sidebar-category-link sidebar-category-parent{% if page.title == category_name or page.categories contains category_name %} active{% endif %}"
                         >
-                          <span>
+                          <span class="sidebar-category-label">
                             <span class="sidebar-category-emoji">{{ category_emoji }}</span>
-                            {{ category_name }}
+                            <span>{{ category_name }}</span>
+                            <span class="sidebar-category-count">({{ posts_of_category.size }})</span>
+                            {% if category_has_new %}
+                              <span class="sidebar-category-new">New</span>
+                            {% endif %}
                           </span>
                         </a>
                       {% endif %}
