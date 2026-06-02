@@ -149,6 +149,23 @@ main h3 {
   font-weight: 600;
 }
 
+.mag-calculation {
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  border: 1px solid rgba(10, 170, 170, 0.3);
+  border-left: 0.3rem solid rgb(10, 170, 170);
+  border-radius: 0.35rem;
+  background: rgba(10, 170, 170, 0.1);
+}
+
+.mag-calculation pre {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-color);
+}
+
 #panel-wrapper .panel-heading {
   font-size: 0.98rem;
   font-weight: 600;
