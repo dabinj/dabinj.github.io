@@ -2,8 +2,16 @@
 <meta name="naver-site-verification" content="0efbb1c454a66efa3b51ddafd5b9e5cc18eb10f2">
 
 {% assign seo_image = page.seo_image | default: page.image.path | default: page.image %}
+{% assign seo_noindex = page.noindex %}
+{% if page.layout == 'category' or page.layout == 'tag' or page.layout == 'categories' or page.layout == 'tags' or page.layout == 'archives' %}
+  {% assign seo_noindex = true %}
+{% endif %}
 
-<meta name="robots" content="max-image-preview:large">
+{% if seo_noindex %}
+  <meta name="robots" content="noindex, follow">
+{% else %}
+  <meta name="robots" content="max-image-preview:large">
+{% endif %}
 
 {% if seo_image %}
   {% assign seo_image_url = seo_image | absolute_url %}

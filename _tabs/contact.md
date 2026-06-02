@@ -2,6 +2,8 @@
 title: Contact
 icon: fas fa-envelope
 order: 5
+sitemap: false
+noindex: true
 ---
 
 {% assign formspree_endpoint = site.contact.formspree.endpoint %}
