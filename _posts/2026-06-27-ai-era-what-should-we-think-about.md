@@ -1,6 +1,6 @@
 ---
 title: "AI 시대, 무가치함과 싸우는 직장인의 고민"
-date: 2026-06-27 09:00:00 +0900
+date: 2026-06-27 01:55:00 +0900
 description: "AI 시대에 무가치함과 싸우며, 인간은 무엇을 판단하고 무엇을 지켜야 하는지 고민한 기록입니다."
 author: dabin
 categories: [Essay, Thoughts]
