@@ -31,7 +31,7 @@ contact:
     success_message: 문의가 전송되었습니다. 답장이 필요하면 이메일 주소를 함께 남겨 주세요.
 
 theme_mode: dark
-avatar: /assets/img/profile.png
+avatar: /assets/img/dark_logo2.png
 
 toc: true
 
