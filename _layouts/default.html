@@ -8,7 +8,25 @@ layout: compress
 
 {% include lang.html %}
 
-{% if site.theme_mode %}
+{% assign essay_life_post = false %}
+{% assign essay_life_theme = false %}
+{% if page.layout == 'post' %}
+  {% if page.categories contains 'Essay' or page.categories contains 'Life' %}
+    {% assign essay_life_post = true %}
+    {% assign essay_life_theme = true %}
+  {% endif %}
+{% elsif page.layout == 'category' %}
+  {% for post in page.posts %}
+    {% if post.categories contains 'Essay' or post.categories contains 'Life' %}
+      {% assign essay_life_theme = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if essay_life_theme %}
+  {% capture prefer_mode %}data-mode="light"{% endcapture %}
+{% elsif site.theme_mode %}
   {% capture prefer_mode %}data-mode="{{ site.theme_mode }}"{% endcapture %}
 {% endif %}
 
@@ -16,7 +34,7 @@ layout: compress
 <html lang="{{ site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
   {% include head.html %}
 
-  <body>
+  <body{% if essay_life_theme %} class="essay-life-theme{% if essay_life_post %} essay-life-post{% endif %}{% if page.layout == 'category' %} essay-life-category{% endif %}"{% endif %}>
     {% include sidebar.html lang=lang %}
 
     <div id="main-wrapper" class="d-flex justify-content-center">

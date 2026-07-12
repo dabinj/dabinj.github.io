@@ -1,6 +1,24 @@
 <meta name="google-site-verification" content="5pWV6Zkk_4EXH7Fv9M0d3EjG_veJ11tGXh85yT8LiAI">
 <meta name="naver-site-verification" content="0efbb1c454a66efa3b51ddafd5b9e5cc18eb10f2">
 
+{% assign essay_life_font = false %}
+{% if page.layout == 'post' %}
+  {% if page.categories contains 'Essay' or page.categories contains 'Life' %}
+    {% assign essay_life_font = true %}
+  {% endif %}
+{% elsif page.layout == 'category' %}
+  {% for post in page.posts %}
+    {% if post.categories contains 'Essay' or post.categories contains 'Life' %}
+      {% assign essay_life_font = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if essay_life_font %}
+  <link href="https://hangeul.pstatic.net/hangeul_static/css/NanumDdarEGeEomMaGa.css" rel="stylesheet">
+{% endif %}
+
 {% assign seo_image = page.seo_image | default: page.image.path | default: page.image %}
 {% assign seo_noindex = page.noindex %}
 {% if page.layout == 'category' or page.layout == 'tag' or page.layout == 'categories' or page.layout == 'tags' or page.layout == 'archives' %}

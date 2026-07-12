@@ -232,6 +232,139 @@ main h3 {
   font-weight: 600;
 }
 
+body.essay-life-post article > header h1,
+body.essay-life-post article .content,
+body.essay-life-post article .content h2,
+body.essay-life-post article .content h3,
+body.essay-life-post article .content h4,
+body.essay-life-post article .content h5,
+body.essay-life-post article .content h6,
+body.essay-life-category #page-category h1,
+body.essay-life-category .category-post-title a,
+body.essay-life-post #related-posts h4 {
+  font-family:
+    'NanumDdarEGeEomMaGa',
+    'Apple SD Gothic Neo',
+    'Malgun Gothic',
+    sans-serif;
+}
+
+body.essay-life-theme {
+  --main-bg: #f7f0e2;
+  --sidebar-bg: #efe4d2;
+  --topbar-bg: rgba(247, 240, 226, 0.92);
+  --topbar-text-color: #5a4b3e;
+  --text-color: #332b24;
+  --heading-color: #201915;
+  --text-muted-color: #74675d;
+  --text-muted-hightlight-color: #5b4e43;
+  --main-border-color: rgba(112, 92, 72, 0.18);
+  --card-border-color: rgba(112, 92, 72, 0.2);
+  --card-bg: #fbf5e9;
+  --card-hovor-bg: #f2e5d1;
+  --card-shadow: rgba(94, 72, 50, 0.08) 0 8px 22px 0,
+    rgba(94, 72, 50, 0.04) 0 2px 6px 0;
+  --blockquote-border-color: #c8ab85;
+  --blockquote-text-color: #5f5146;
+  --link-color: #8b5e34;
+  --link-underline-color: rgba(139, 94, 52, 0.28);
+  --btn-border-color: #dbc9ad;
+  --btn-backtotop-color: #6e5f52;
+  --btn-backtotop-border-color: #e8dac3;
+  --btn-box-shadow: rgba(94, 72, 50, 0.12);
+  --btn-patinator-text-color: #5f5146;
+  --btn-paginator-hover-color: #eadcc5;
+  --prompt-text-color: rgba(51, 43, 36, 0.82);
+  --categories-hover-bg: #eadcc5;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.08)),
+    #f7f0e2;
+}
+
+body.essay-life-theme #main-wrapper,
+body.essay-life-theme main,
+body.essay-life-theme #tail-wrapper {
+  background: transparent;
+}
+
+body.essay-life-theme #panel-wrapper .access,
+body.essay-life-theme #panel-wrapper .access .panel-heading,
+body.essay-life-theme #panel-wrapper .update-list__date {
+  color: var(--text-muted-color);
+}
+
+body.essay-life-theme .post-preview.card,
+body.essay-life-theme .private-contact-card,
+body.essay-life-theme .remark42-comments,
+body.essay-life-theme .category-post-card {
+  border-color: var(--card-border-color);
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+}
+
+body.essay-life-theme .post-preview.card:hover,
+body.essay-life-theme .category-post-card:hover {
+  border-color: rgba(139, 94, 52, 0.46);
+  background: var(--card-hovor-bg);
+}
+
+body.essay-life-theme .btn-outline-primary {
+  border-color: var(--btn-border-color);
+  color: #7a5a3d;
+}
+
+body.essay-life-theme .btn-outline-primary:hover,
+body.essay-life-theme .btn-outline-primary:focus-visible {
+  border-color: #a97847;
+  background: #eadcc5;
+  color: #4a3829;
+}
+
+body.essay-life-theme .post-like__button {
+  background: #fbf5e9;
+}
+
+body.essay-life-theme .remark42-comments {
+  padding: 1.35rem 1.45rem;
+  border: 1px solid var(--card-border-color);
+  border-radius: 0.75rem;
+}
+
+body.essay-life-post article h1 {
+  font-size: 2.35rem;
+  line-height: 1.35;
+}
+
+body.essay-life-post article .content h2 {
+  font-size: 1.85rem;
+  line-height: 1.45;
+}
+
+body.essay-life-post article .content h3 {
+  font-size: 1.58rem;
+  line-height: 1.5;
+}
+
+body.essay-life-post article .content h4 {
+  font-size: 1.38rem;
+  line-height: 1.55;
+}
+
+body.essay-life-post article .content {
+  font-size: 1.28rem;
+  line-height: 2;
+}
+
+body.essay-life-post article .content p,
+body.essay-life-post article .content li,
+body.essay-life-post article .content blockquote {
+  line-height: 2;
+}
+
+body.essay-life-post article .content strong {
+  font-weight: 700;
+}
+
 .mag-calculation {
   margin: 1.25rem 0;
   overflow-x: auto;
