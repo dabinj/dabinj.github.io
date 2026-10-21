@@ -40,12 +40,12 @@
     </nav>
     <!-- endof #breadcrumb -->
 
-    <button type="button" id="sidebar-trigger" class="btn btn-link">
+    <button type="button" id="sidebar-trigger" class="btn btn-link" aria-label="메뉴 열기">
       <i class="fas fa-bars fa-fw"></i>
     </button>
 
     <div id="topbar-title">
-      {% if page.layout == 'home' %}
+      {% if page.layout == 'home' or page.layout == 'home-landing' %}
         {{- site.data.locales[include.lang].title | default: site.title -}}
       {% elsif page.collection == 'tabs' or page.layout == 'page' %}
         {%- capture tab_key -%}{{ page.url | split: '/' }}{%- endcapture -%}
@@ -55,7 +55,7 @@
       {% endif %}
     </div>
 
-    <button type="button" id="search-trigger" class="btn btn-link">
+    <button type="button" id="search-trigger" class="btn btn-link" aria-label="검색 열기">
       <i class="fas fa-search fa-fw"></i>
     </button>
 
