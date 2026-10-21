@@ -23,7 +23,7 @@ layout: page
         {% assign post_is_new = true %}
       {% endif %}
       {% assign escaped_title = post.title | escape %}
-      <article class="category-post-card" data-full-title="{{ escaped_title }}">
+      <article class="category-post-card{% if post.categories contains 'Life' %} life-font{% endif %}" data-full-title="{{ escaped_title }}">
         {% assign thumbnail = nil %}
         {% if post.image %}
           {% assign thumbnail = post.image.path | default: post.image %}

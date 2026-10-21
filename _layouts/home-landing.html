@@ -27,7 +27,7 @@ layout: default
 
     <div class="home-post-list">
       {% for post in site.posts limit: 5 %}
-        <article class="home-post-card">
+        <article class="home-post-card{% if post.categories contains 'Life' %} life-font{% endif %}">
           <p class="home-post-meta">
             {% assign display_date = post.last_modified_at | default: post.date %}
             {{ display_date | date: "%Y.%m.%d" }}

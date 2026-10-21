@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Nanum Gothic';
+  src: url('/assets/fonts/nanum-gothic/NanumGothic-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+body.life-font,
+body.life-font main :is(h1, h2, h3, h4, h5, h6, .content),
+body.life-font #page-category .category-post-title a,
+body.life-font #related-posts h4,
+body .life-font :is(.card-title, .card-text, .home-post-title, .home-post-title a, .home-post-description, .category-post-title, .category-post-title a, h4) {
+  font-family: 'Nanum Gothic', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+}
+
+body.life-font.essay-life-post article > header h1 {
+  font-size: clamp(1.65rem, 1.3rem + 1.3vw, 2.1rem);
+  line-height: 1.5;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+body.life-font.essay-life-post article .content {
+  font-size: 1.0625rem;
+  line-height: 1.9;
+}
+
+body.life-font.essay-life-post article .content :is(p, li, blockquote) {
+  line-height: 1.9;
+}
+
+body.life-font.essay-life-post article .content h2 {
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+
+body.life-font.essay-life-post article .content h3 {
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+body.life-font.essay-life-post article .content :is(h4, h5, h6) {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}

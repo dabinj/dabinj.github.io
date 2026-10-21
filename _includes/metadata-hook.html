@@ -3,12 +3,12 @@
 
 {% assign essay_life_font = false %}
 {% if page.layout == 'post' %}
-  {% if page.categories contains 'Essay' or page.categories contains 'Life' %}
+  {% if page.categories contains 'Essay' %}
     {% assign essay_life_font = true %}
   {% endif %}
 {% elsif page.layout == 'category' %}
   {% for post in page.posts %}
-    {% if post.categories contains 'Essay' or post.categories contains 'Life' %}
+    {% if post.categories contains 'Essay' %}
       {% assign essay_life_font = true %}
       {% break %}
     {% endif %}
@@ -17,6 +17,11 @@
 
 {% if essay_life_font %}
   <link href="https://hangeul.pstatic.net/hangeul_static/css/NanumSeongSirCe.css" rel="stylesheet">
+{% endif %}
+
+<link href="{{ '/assets/css/life-typography.css' | relative_url }}" rel="stylesheet">
+{% if page.custom_style == 'danang-travel' %}
+  <link href="{{ '/assets/css/danang-travel.css' | relative_url }}" rel="stylesheet">
 {% endif %}
 
 {% assign seo_image = page.seo_image | default: page.image.path | default: page.image %}

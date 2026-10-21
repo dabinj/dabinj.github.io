@@ -10,6 +10,17 @@ layout: compress
 
 {% assign essay_life_post = false %}
 {% assign essay_life_theme = false %}
+{% assign life_font = false %}
+{% if page.layout == 'post' and page.categories contains 'Life' %}
+  {% assign life_font = true %}
+{% elsif page.layout == 'category' %}
+  {% for post in page.posts %}
+    {% if post.categories contains 'Life' %}
+      {% assign life_font = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
 {% if page.layout == 'post' %}
   {% if page.categories contains 'Essay' or page.categories contains 'Life' %}
     {% assign essay_life_post = true %}
@@ -34,7 +45,7 @@ layout: compress
 <html lang="{{ site.alt_lang | default: site.lang }}" {{ prefer_mode }}>
   {% include head.html %}
 
-  <body{% if essay_life_theme %} class="essay-life-theme{% if essay_life_post %} essay-life-post{% endif %}{% if page.layout == 'category' %} essay-life-category{% endif %}"{% endif %}>
+  <body{% if essay_life_theme %} class="essay-life-theme{% if life_font %} life-font{% endif %}{% if essay_life_post %} essay-life-post{% endif %}{% if page.layout == 'category' %} essay-life-category{% endif %}"{% endif %}>
     {% include sidebar.html lang=lang %}
 
     <div id="main-wrapper" class="d-flex justify-content-center">
